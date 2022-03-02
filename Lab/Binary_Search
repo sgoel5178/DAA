@@ -1,0 +1,43 @@
+#include <stdio.h>
+int binary(int arr[],int key,int n){
+    int l=0,h=n-1,mid;
+    int count=0;
+    while(l<=h){
+        mid=(h+l)/2;
+        if(arr[mid]==key){
+            return mid;
+        }
+        else if(arr[mid]>key)
+            h=mid-1;
+        else
+            l=mid+1;
+    }
+    return -1;
+}
+int rec_binary(int arr[],int key,int n,int l,int h){
+        if(l>h){
+            return -1;
+        }
+        int mid=(h+l)/2;
+        if(arr[mid]==key){
+            return mid;
+        }
+        else if(arr[mid]>key)
+            return rec_binary(arr,key,n,l,mid-1);
+        else
+            return rec_binary(arr,key,n,mid+1,h);
+}
+int main()
+{
+    int n,key;
+    scanf("%d%d",&n,&key);
+    int arr[n];
+    for(int i=0;i<n;i++)
+        scanf("%d",&arr[i]);
+    int ans=rec_binary(arr,key,n,0,n-1);
+    if(ans!=-1)
+    printf("The key is found at %d",ans);
+    else
+    printf("The key is not found!");
+    return 0;
+}
